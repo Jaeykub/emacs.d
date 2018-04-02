@@ -73,6 +73,39 @@
  '(buffer-menu-buffer ((t (:weight extra-bold))))
  '(js2-warning ((t (:underline (:color "red1" :style wave))))))
 
+;; ===========================================================
+;; ===========================================================
+;; grabbed this from:
+;; https://github.com/rawsyntax/emacs.d/blob/master/init.el
+;; You can keep system- or user-specific customizations here
+;; ===========================================================
+(progn
+  ;; Turn off mouse interface early in startup to avoid momentary display
+  (dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
+    (when (fboundp mode) (funcall mode -1)))
+
+
+  ;; You can keep system- or user-specific customizations here
+  (setq esk-system-config (concat user-emacs-directory system-name ".el")
+        esk-user-config (concat user-emacs-directory user-login-name ".el")
+        esk-user-dir (concat user-emacs-directory user-login-name))
+
+  (require 'uniquify)
+
+  (defun esk-eval-after-init (form)
+    "Add `(lambda () FORM)' to `after-init-hook'.
+    If Emacs has already finished initialization, also eval FORM immediately."
+    (let ((func (list 'lambda nil form)))
+      (add-hook 'after-init-hook func)
+      (when after-init-time
+        (eval form))))
+
+  (esk-eval-after-init
+   '(progn
+      (when (file-exists-p esk-system-config) (load esk-system-config))
+      (when (file-exists-p esk-user-config) (load esk-user-config))
+      (when (file-exists-p esk-user-dir)
+        (mapc 'load (directory-files esk-user-dir t "^[^#].*el$"))))))
 ;;================================================================
 ;;=========== THINGS I'VE ADDED MANUALLY =========================
 
@@ -93,96 +126,5 @@
 ;;disable scrollbars
 (scroll-bar-mode -1)
 
-;; set tab width for javascript
-;(setq-default ab-width 4)
-
-;; enable IDO mode
-(require 'ido)
-(ido-mode t)
-
-;;setup evil mode, MUHAHAHAH
-(add-to-list 'load-path "~/.emacs.d/evil")
-(require 'evil)
-(evil-mode 1)
-
-;;use find file in project
-(add-to-list 'load-path "~/.emacs.d/find-file-in-project")
-(require 'find-file-in-project)
-   (if (eq system-type 'windows-nt)
-      (setq ffip-find-executable "c:/Users/jacobj/Documents/Portable_Git_32/usr/bin/find.exe"))
-
-;;setup csharp mode
-(add-to-list 'load-path "~/.emacs.d/csharp-mode")
-   (autoload 'csharp-mode "csharp-mode" "Major mode for editing C# code." t)
-   (setq auto-mode-alist
-      (append '(("\\.cs$" . csharp-mode)) auto-mode-alist))
-
-;;use evil numbers ^o^
-(add-to-list 'load-path "~/.emacs.d/evil-numbers")
-(require 'evil-numbers)
-(global-set-key (kbd "C-c +") 'evil-numbers/inc-at-pt)
-(global-set-key (kbd "C-c -") 'evil-numbers/dec-at-pt)
-
-;;use adaptive wrap
-(add-to-list 'load-path "~/.emacs.d/adaptive-wrap")
-(require 'adaptive-wrap)
-
-;;use sr-speedbar
-(add-to-list 'load-path "~/.emacs.d/sr-speedbar")
-(require 'sr-speedbar)
-;; (with-current-buffer sr-speedbar-buffer-name
-;;   (setq window-size-fixed 'width))
-
-;;use js2 mode 
-(add-to-list 'load-path "~/.emacs.d/js2-mode")
-(require 'js2-mode)
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-
-
-;; load undo-tree
-(add-to-list 'load-path "~/.emacs.d/undo-tree")
-  (require 'undo-tree)
-;; use undo-tree
-(global-undo-tree-mode)
-
 ;;save emacs session
 (desktop-save-mode 1)
-
-;;;add dash.el, added to get magit working 
-;(add-to-list 'load-path "~/.emacs.d/dash.el")
-;
-;;;add with-editor, added to get magit working 
-;(add-to-list 'load-path "~/.emacs.d/with-editor")
-
-;;vb-net mode
-(add-to-list 'load-path "~/.emacs.d/vbnet-mode")
-(require 'compile)
-(require 'vbnet-mode)
-	(autoload 'vbnet-mode "vbnet-mode" "Mode for editing VB.NET code." t)
-	(setq auto-mode-alist
-		(append '(("\\.vb$" . vbnet-mode)) auto-mode-alist))
-
-;; pomodoro timer
-(add-to-list 'load-path "~/.emacs.d/pomodoro.el")
-	(require 'pomodoro) 
-	(pomodoro-add-to-mode-line)
-
-;;custom keyboard shortcuts
-(defun move-line-up ()
-  (interactive)
-  (transpose-lines 1)
-  (forward-line -2))
-
-(defun move-line-down ()
-  (interactive)
-  (forward-line 1)
-  (transpose-lines 1)
-  (forward-line -1))
-
-(global-set-key (kbd "<M-up>") 'move-line-up)
-(global-set-key (kbd "<M-down>") 'move-line-down)
-
-(global-set-key (kbd "C-<") 'previous-buffer)
-(global-set-key (kbd "C->") 'next-buffer)
-(put 'narrow-to-region 'disabled nil)
-(put 'set-goal-column 'disabled nil)
