@@ -1,0 +1,15 @@
+# temp files emacs creates
+*~
+\#*\#
+# compiled elisp
+*elc
+elpa/**
+places
+/url/cookies
+tramp
+.smex-items
+eshell/**
+image-dired/
+.DS_Store
+/ido.last
+/recentf
