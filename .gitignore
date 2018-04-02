@@ -13,3 +13,20 @@ image-dired/
 .DS_Store
 /ido.last
 /recentf
+.gnupg/
+.history
+.saves/
+Adobe/
+Foxit Software/
+GHISLER/
+Greenshot/
+Macromedia/
+Microsoft/
+Mozilla/
+Notepad++/
+NuGet/
+SolidDocuments/
+Subversion/
+TortoiseSVN/
+TurboMeeting/
+bin/
