@@ -64,7 +64,10 @@
 	 (320 . "#8CD0D3")
 	 (340 . "#94BFF3")
 	 (360 . "#DC8CC3"))))
- '(vc-annotate-very-old-color "#DC8CC3"))
+ '(vc-annotate-very-old-color "#DC8CC3")
+ '(whitespace-style
+   (quote
+	(trailing tabs spaces newline empty indentation space-after-tab space-before-tab space-mark tab-mark newline-mark))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -81,8 +84,8 @@
 ;; ===========================================================
 (progn
   ;; Turn off mouse interface early in startup to avoid momentary display
-  (dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
-    (when (fboundp mode) (funcall mode -1)))
+  ;; (dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
+  ;;   (when (fboundp mode) (funcall mode -1)))
 
 
   ;; You can keep system- or user-specific customizations here
@@ -123,8 +126,15 @@
 ;;don't create file lock, this was done because work has a file syncer and it's stupid
 (setq create-lockfiles nil)
 
+;;show line numbers in column
+(global-linum-mode t)
+
+;;sort completions vertically instead of horizontally
+(setq completions-format 'vertical)
+
 ;;disable scrollbars
 (scroll-bar-mode -1)
 
 ;;save emacs session
 (desktop-save-mode 1)
+(put 'narrow-to-region 'disabled nil)
