@@ -137,4 +137,25 @@
 
 ;;save emacs session
 (desktop-save-mode 1)
+
+;; add yasnippet
+(add-to-list 'load-path
+              "~/.emacs.d/plugins/yasnippet")
+(require 'yasnippet)
+(setq yas-snippet-dirs
+      '("~/.emacs.d/snippets"                 ;; personal snippets
+        "~/.emacs.d/plugins/yasnippet/yasnippet-snippets/snippets" ;; the yasmate collection
+        ))
+(yas-global-mode 1)
+;;
+(put 'narrow-to-defun  'disabled nil)
+(put 'narrow-to-page   'disabled nil)
 (put 'narrow-to-region 'disabled nil)
+(put 'set-goal-column 'disabled nil)
+
+
+;; set s register to scratch buffer
+(set-register ?s '(file . "*scratch*"))
+
+;; set c register to scratch buffer
+(set-register ?c '(file . "~/.emacs"))

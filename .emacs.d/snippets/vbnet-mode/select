@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: select
+# key: select
+# --
+Select Case ${1:pName}
+	Case "${2:}"
+		${3:pValue = ""}
+
+	Case Else
+		$4
+End Select

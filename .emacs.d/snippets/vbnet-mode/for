@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: for
+# key: for
+# --
+For $1 As $2 = $3 To $4
+	$0
+Next

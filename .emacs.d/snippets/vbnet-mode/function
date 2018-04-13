@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: function
+# key: fun
+# --
+${1:$$(yas-choose-value '("Public" "Private"))} Function ${2:fun_name} ($3) As ${4:String}
+	Dim ${6:sRet}${7: = }${8:""}
+	$0
+	Return $6
+End Function
