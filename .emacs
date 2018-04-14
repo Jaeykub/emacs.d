@@ -147,6 +147,13 @@
         "~/.emacs.d/plugins/yasnippet/yasnippet-snippets/snippets" ;; the yasmate collection
         ))
 (yas-global-mode 1)
+
+;; use powerline
+(add-to-list 'load-path
+              "~/.emacs.d/powerline")
+(require 'powerline)
+(powerline-center-evil-theme)
+
 ;;
 (put 'narrow-to-defun  'disabled nil)
 (put 'narrow-to-page   'disabled nil)
@@ -159,3 +166,6 @@
 
 ;; set c register to scratch buffer
 (set-register ?c '(file . "~/.emacs"))
+
+;; set longer timeout for minibuffer
+(setq minibuffer-message-timeout 3)
