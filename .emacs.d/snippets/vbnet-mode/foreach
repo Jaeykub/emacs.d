@@ -2,6 +2,6 @@
 # name: for each
 # key: fore
 # --
-For $1 As $2 In $3
+For Each $1 As $2 In $3
 	$0
 Next
